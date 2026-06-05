@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>FlicKey · Stop typing in the wrong keyboard</title>
 <meta name="description" content="FlicKey is a tiny macOS menu-bar app that fixes wrong-keyboard-layout typing and auto-manages your input language per app and per website." />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="favicon.svg" />
+<meta name="theme-color" content="#6A47F2" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Heebo:wght@400;500;700;800&family=Noto+Sans+Arabic:wght@500;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
@@ -324,6 +327,19 @@
     .reveal{opacity:1;transform:none;transition:none}
     .halo,.bigsquircle,.swap-g,.orbit,.o-slot .upr,.ochip,.ambient::before,.ambient::after{animation:none!important}
   }
+  /* privacy: permissions accordion */
+  .perms{max-width:760px;margin:30px auto 0;display:flex;flex-direction:column;gap:10px}
+  .perm{display:block;width:100%;text-align:left;background:var(--glass);border:1px solid var(--line);
+    border-radius:14px;padding:15px 18px;cursor:pointer;color:var(--ink);font:inherit;
+    transition:background .2s,border-color .2s}
+  .perm:hover{background:var(--glass-2);border-color:rgba(255,255,255,.16)}
+  .perm-h{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:15px}
+  .perm-x{color:var(--ink-faint);font-size:22px;line-height:1;transition:transform .25s,color .25s}
+  .perm.open .perm-x{transform:rotate(45deg);color:#8b6cff}
+  .perm-d{display:block;color:var(--ink-soft);font-size:13.5px;line-height:1.6;
+    max-height:0;overflow:hidden;opacity:0;transition:max-height .32s ease,opacity .25s,margin-top .32s}
+  .perm.open .perm-d{max-height:200px;opacity:1;margin-top:11px}
+  .perm-d code{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink)}
 </style>
 </head>
 <body>
@@ -358,6 +374,7 @@
     <div class="nav-links">
       <a href="#demo">Demo</a>
       <a href="#features">Features</a>
+      <a href="#privacy">Privacy</a>
       <a href="#how">How it works</a>
       <a class="btn btn-primary nav-cta" href="https://github.com/alfital2/flickey-app/releases/latest/download/FlicKey.dmg" style="padding:9px 16px;font-size:14px">Download</a>
     </div>
@@ -542,6 +559,50 @@
         <h3>It just works</h3>
         <p>Type away. Hit <b style="color:var(--ink)">⌥2</b> whenever you slip, and let auto-switching handle the rest.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRIVACY -->
+<section id="privacy">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">Privacy &amp; security</div>
+      <h2>Private by design.</h2>
+      <p class="sec-sub">It's a tiny local utility. Nothing about you ever leaves your Mac.</p>
+    </div>
+    <div class="grid">
+      <div class="card reveal r-left" data-d="0" data-tilt>
+        <div class="card-ico"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div>
+        <h3>Stays on your Mac</h3>
+        <p>It only stores tiny preferences — which layout you like per app, website, and chat. No documents, no messages, no keystrokes, no history.</p>
+      </div>
+      <div class="card reveal r-right" data-d="1" data-tilt>
+        <div class="card-ico"><svg viewBox="0 0 24 24"><path d="M3 3l18 18"/><path d="M10.6 10.6a3 3 0 0 0 4.2 4.2"/><path d="M9.8 5.1A9 9 0 0 1 21 12a16 16 0 0 1-2.1 2.9"/><path d="M6.2 6.2A16 16 0 0 0 3 12a9 9 0 0 0 11.5 6.3"/></svg></div>
+        <h3>No account, no tracking</h3>
+        <p>No sign-in, no analytics, no telemetry. It never reports what you do — there's no server to report to.</p>
+      </div>
+      <div class="card reveal r-left" data-d="2" data-tilt>
+        <div class="card-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18z"/></svg></div>
+        <h3>One network call</h3>
+        <p>The only connection it makes is a version check to GitHub — and it sends nothing about you. That's it.</p>
+      </div>
+      <div class="card reveal r-right" data-d="3" data-tilt>
+        <div class="card-ico"><svg viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="M11 12l8-8"/><path d="M16.5 6.5l3 3"/></svg></div>
+        <h3>Permissions, explained</h3>
+        <p>Two macOS permissions, each for one clear job. Tap below to see exactly what they do — and don't.</p>
+      </div>
+    </div>
+
+    <div class="perms reveal">
+      <button class="perm" type="button" aria-expanded="false">
+        <span class="perm-h"><span><b>Accessibility</b> — to switch &amp; fix</span><span class="perm-x">+</span></span>
+        <span class="perm-d">Reads the active window's <em>title</em> (to know which app/site/chat you're in) and sends the copy-and-paste keystrokes for the “fix layout” shortcut. It does <b>not</b> read your screen or log what you type.</span>
+      </button>
+      <button class="perm" type="button" aria-expanded="false">
+        <span class="perm-h"><span><b>Automation</b> — to read the tab you're on</span><span class="perm-x">+</span></span>
+        <span class="perm-d">Asks your browser for the current tab's address so it can remember your language per website. It keeps only the bare domain (e.g. <code>ynet.co.il</code>) — never the full URL or page contents.</span>
+      </button>
     </div>
   </div>
 </section>
@@ -897,6 +958,14 @@
     })
     .catch(function(){ /* keep fallback */ });
 })();
+
+// Privacy: expand/collapse the permission explainers.
+document.querySelectorAll('.perm').forEach(function(p){
+  p.addEventListener('click', function(){
+    var open = p.classList.toggle('open');
+    p.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+});
 </script>
 </body>
 </html>
